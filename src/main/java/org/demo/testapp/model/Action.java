@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -21,30 +22,36 @@ public class Action {
     @NotNull
     @Column(name = "module_id", nullable = false)
     private String moduleId;
+
     @Size(max = 255)
     @NotNull
     @Column(name = "context", nullable = false)
     private String context;
+
     @Size(max = 255)
     @NotNull
     @Column(name = "activity", nullable = false)
     private String activity;
+
     @NotNull
     @Column(name = "when_recorded", nullable = false)
-    private Instant whenRecorded;
+    private LocalDateTime whenRecorded;
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "patient_entity_id", nullable = false)
     private Patient patientEntity;
+
     @NotNull
     @Column(name = "entity_version", nullable = false)
     private Long entityVersion;
+
     @NotNull
     @Column(name = "entity_updated", nullable = false)
     private Instant entityUpdated;
+
     @NotNull
     @Column(name = "entity_created", nullable = false)
     private Instant entityCreated;
-
 
 }

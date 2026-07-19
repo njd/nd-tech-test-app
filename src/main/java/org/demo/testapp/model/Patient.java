@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -41,12 +42,12 @@ public class Patient {
     @Column(name = "family_name", nullable = false)
     private String familyName;
     @Column(name = "when_registered")
-    private Instant whenRegistered;
+    private LocalDateTime whenRegistered;
     @NotNull
     @Column(name = "when_invited", nullable = false)
-    private Instant whenInvited;
+    private LocalDateTime whenInvited;
     @Column(name = "when_discharged")
-    private Instant whenDischarged;
+    private LocalDateTime whenDischarged;
     @NotNull
     @Column(name = "entity_version", nullable = false)
     private Long entityVersion;
