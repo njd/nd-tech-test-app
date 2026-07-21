@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ActionRepository extends JpaRepository<Action, Long> {
 
-    List<Action> findByPatientEntity(Patient patient);
+    List<Action> findByPatient(Patient patient);
 
     // for test support
 

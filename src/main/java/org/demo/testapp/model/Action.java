@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Action {
     @Id
     @Column(name = "entity_id", nullable = false)
@@ -20,31 +22,31 @@ public class Action {
     private Long entityId;
 
     @Column(name = "id", nullable = false)
-    private UUID id;
+    private UUID id = UUID.randomUUID();
 
     @Size(max = 255)
     @NotNull
     @Column(name = "module_id", nullable = false)
-    private String moduleId;
+    private String moduleId = "";
 
     @Size(max = 255)
     @NotNull
     @Column(name = "context", nullable = false)
-    private String context;
+    private String context = "";
 
     @Size(max = 255)
     @NotNull
     @Column(name = "activity", nullable = false)
-    private String activity;
+    private String activity = "";
 
     @NotNull
     @Column(name = "when_recorded", nullable = false)
-    private LocalDateTime whenRecorded;
+    private LocalDateTime whenRecorded = LocalDateTime.now();
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "patient_entity_id", nullable = false)
-    private Patient patientEntity;
+    private Patient patient;
 
     @Version
     @NotNull
@@ -53,10 +55,13 @@ public class Action {
 
     @NotNull
     @Column(name = "entity_updated", nullable = false)
-    private Instant entityUpdated;
+    private Instant entityUpdated = Instant.now();
 
     @NotNull
     @Column(name = "entity_created", nullable = false)
-    private Instant entityCreated;
+    private Instant entityCreated = Instant.now();
 
+    public Action(Long entityId) {
+        this.entityId = entityId;
+    }
 }

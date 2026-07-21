@@ -1,9 +1,6 @@
 package org.demo.testapp.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -13,6 +10,7 @@ import lombok.Setter;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -64,6 +62,9 @@ public class Patient {
 
     @Column(name = "when_discharged")
     private LocalDateTime whenDischarged;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Action> actions;
 
     @Version
     @NotNull
