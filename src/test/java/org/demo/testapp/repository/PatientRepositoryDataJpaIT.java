@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles({"test", "datajpatest"})
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class PatientRepositoryTest {
+class PatientRepositoryDataJpaIT {
 
     /* keep counts of record types for later comparison */
     record DataStats (
