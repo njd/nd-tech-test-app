@@ -1,8 +1,6 @@
 package org.demo.testapp.controller;
 
-import org.demo.testapp.dto.PatientResponseDto;
-import org.demo.testapp.mapper.ActionMapper;
-import org.demo.testapp.mapper.PatientResponseMapper;
+import org.demo.testapp.model.Patient;
 import org.demo.testapp.service.PatientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,15 +13,9 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    PatientResponseMapper patientResponseMapper;
-    ActionMapper actionMapper;
-
     private final PatientService patientService;
 
-    public HomeController(PatientResponseMapper patientResponseMapper,
-                          ActionMapper actionMapper, PatientService patientService) {
-        this.patientResponseMapper = patientResponseMapper;
-        this.actionMapper = actionMapper;
+    public HomeController(PatientService patientService) {
         this.patientService = patientService;
     }
 
@@ -31,10 +23,10 @@ public class HomeController {
     @GetMapping("/")
     public String listPatients(Model model) {
 
-        List<PatientResponseDto> patientDtos = patientService.getPatients();
+        List<Patient> patients = patientService.getPatients();
 
         model.addAttribute("datetime", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        model.addAttribute("patients", patientDtos);
+        model.addAttribute("patients", patients);
         return "list";
     }
 

@@ -1,10 +1,9 @@
 package org.demo.testapp.controller;
 
-import org.demo.testapp.dto.PatientResponseDto;
-import org.demo.testapp.mapper.PatientResponseMapper;
 import org.demo.testapp.model.Patient;
 import org.demo.testapp.repository.PatientRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,20 +14,16 @@ import java.util.List;
 public class PatientController {
 
     private PatientRepository patientRepository;
-    private PatientResponseMapper patientResponseMapper;
 
-    public PatientController(PatientRepository patientRepository, PatientResponseMapper patientResponseMapper) {
+    public PatientController(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
-        this.patientResponseMapper = patientResponseMapper;
     }
 
     @GetMapping("/list")
-    public String listPatients() {
+    public String listPatients(Model model) {
 
         List<Patient> patients = patientRepository.findAll();
-
-        List<PatientResponseDto> patientDtos = patientResponseMapper.
-                toDtoList(patients);
+        model.addAttribute("patients", patients);
 
         return "list";
     }

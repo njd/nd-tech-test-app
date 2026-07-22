@@ -1,7 +1,5 @@
 package org.demo.testapp.service;
 
-import org.demo.testapp.dto.PatientResponseDto;
-import org.demo.testapp.mapper.PatientResponseMapper;
 import org.demo.testapp.model.Patient;
 import org.demo.testapp.repository.ActionRepository;
 import org.demo.testapp.repository.PatientRepository;
@@ -34,9 +32,6 @@ class PatientServiceTest {
     @Mock
     ActionRepository actionRepository;
 
-    @Mock
-    PatientResponseMapper patientResponseMapper;
-
     @InjectMocks
     private PatientService patientService;
 
@@ -47,7 +42,6 @@ class PatientServiceTest {
 
     @BeforeEach
     void setUp() {
-        when(patientResponseMapper.toDtoList())
     }
 
     @AfterEach
@@ -63,7 +57,7 @@ class PatientServiceTest {
         mockPatient.setId(uuid);
         when(patientRepository.findByEntityId(anyLong())).thenReturn(Optional.of(mockPatient));
 
-        PatientResponseDto patient = patientService.getPatient(entityId);
+        Patient patient = patientService.getPatient(entityId);
 
         assertThat(patient.getEntityId()).isEqualTo(entityId);
         assertThat(patient.getGivenName()).isEqualTo("Firstname");
@@ -91,7 +85,7 @@ class PatientServiceTest {
 
         when(patientRepository.findAll()).thenReturn(mockPatientList);
 
-        List<PatientResponseDto> patients = patientService.getPatients();
+        List<Patient> patients = patientService.getPatients();
 
         assertThat(patients).hasSize(mockPatientList.size());
     }
@@ -107,7 +101,7 @@ class PatientServiceTest {
 
         when(patientRepository.findByWhenRegisteredIsNotNull()).thenReturn(mockPatientList);
 
-        List<PatientResponseDto> patientDtos = patientService.getPatientsRegistered();
+        List<Patient> patientDtos = patientService.getPatientsRegistered();
 
         assertThat(patientDtos).hasSize(2);
     }
@@ -123,7 +117,7 @@ class PatientServiceTest {
 
         when(patientRepository.findByWhenInvitedIsNotNull()).thenReturn(mockPatientList);
 
-        List<PatientResponseDto> patients = patientService.getPatientsInvited();
+        List<Patient> patients = patientService.getPatientsInvited();
 
         assertThat(patients).hasSize(2);
     }
@@ -139,7 +133,7 @@ class PatientServiceTest {
 
         when(patientRepository.findByWhenDischargedIsNotNull()).thenReturn(mockPatientList);
 
-        List<PatientResponseDto> patients = patientService.getPatientsDischarged();
+        List<Patient> patients = patientService.getPatientsDischarged();
 
         assertThat(patients).hasSize(2);
     }

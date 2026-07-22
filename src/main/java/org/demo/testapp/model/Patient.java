@@ -20,7 +20,6 @@ import java.util.UUID;
 public class Patient {
 
     @Id
-    // @GeneratedValue(strategy = GenerationType.)
     @Column(name = "entity_id", nullable = false)
     private Long entityId;
 
